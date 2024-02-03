@@ -42,7 +42,7 @@ class Database:
         """
         self.connection.close()
 
-    def execute(self, query: str, *args) -> Cursor:
+    def _execute(self, query: str, *args) -> Cursor:
         """
         Executes a query on the database.
 
@@ -60,3 +60,34 @@ class Database:
         cursor: Cursor = self.connection.cursor()
         cursor.execute(query, args)
         return cursor
+
+    def addUser(self, email: str, rawPassword: str) -> int:
+        """
+        Adds a user to the database.
+
+        Args:
+            email (str): The email of the user.
+            rawPassword (str): The password of the user.
+
+        Returns:
+            int: The ID of the user.
+        """
+
+        # Hash password
+        password: str = pbkdf2_sha512.hash(rawPassword)
+
+        # Remove raw password from memory
+        rawPassword = None
+        del rawPassword
+
+        # Execute the query
+        cursor: Cursor = self._execute("INSERT INTO users (email, password) VALUES (?, ?)", email, password)
+
+        # Get the ID of the user
+        uid: int = cursor.lastrowid
+
+        # Commit the changes
+        self.connection.commit()
+
+        # Return the ID of the user
+        return uid
