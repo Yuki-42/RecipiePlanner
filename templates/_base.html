@@ -1,3 +1,4 @@
+{# Template for all endpoints (except when not) #}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,11 +8,9 @@
     <link rel="stylesheet" href="{{ url_for("static", filename="css/_base.css") }}">
     {% block stylesheets %}{% endblock %}
     {% block scripts %}{% endblock %}
-    <title>{% block title %}</title>
+    <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
-    {% block content %}
-
-    {% endblock %}
+    {% block content %}{% endblock %}
 </body>
 </html>

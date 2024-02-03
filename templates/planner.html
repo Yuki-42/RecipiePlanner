@@ -6,6 +6,7 @@
 
 {% block scripts %}
     <script src="{{ url_for("static", filename="js/planner.js") }}"></script>
+    <script src="{{ url_for("static", filename="js/DragDropTouch.js") }}"></script>
 {% endblock %}
 
 {% block title %}Planner{% endblock %}
@@ -13,17 +14,59 @@
 {% block content %}
     <h1>Meal Planner</h1>
     <div id="planner">
+        <ul id="items" class="item-list">
+        {% for i in range(1, 8) %}
+            <li id="item{{ i }}" class="item" draggable="true">
+                <div class="recipie" style="grid-column: 1">
+                    <label for="item{{ i }}-checkbox"><a id="recipie-link" href="https://www.google.com">RECIPIE {{ i }}</a></label>
+                </div>
+                <div class="checkbox" style="grid-column: 2">
+                    <input type="checkbox" id="item{{ i }}-checkbox" class="checkbox" onclick="this.checked = !this.checked; checkboxClick(this);">
+                </div>
+            </li>
+
+        {% endfor %}
+        </ul>
+    </div>
+    <div id="add" class="plus-button">
+        <button id="add-button" onclick="addRecipie()">+</button>
+    </div>
+    <div id="add-popup" class="popup" hidden="hidden">
+        <div class="popup-content">
+            <span class="close" onclick="closePopup()">&times;</span>
+            <h2>Add Recipie</h2>
+            <form id="add-form" action="/planner" method="post">
+                <label for="recipie-name">Recipie Name:</label>
+                <input type="text" id="recipie-name" name="recipie-name" required>
+                <label for="recipie-link">Recipie Link:</label>
+                <input type="text" id="recipie-link" name="recipie-link" required>
+                <input type="submit" value="Add">
+            </form>
+        </div>
+    </div>
+    <div id="access-rb" class="access-rb">
+        <button id="access-button" onclick="showRecipies()">↑</button>
+    </div>
+    <div id="recipies-popup" class="slide-up">
+        <p>test</p>
+    </div>
+
+    <!--
+    <div id="planner">
         <ul id="items">
-            <!-- Loop through 1-7 and autofill generic placeholders using the template before (just changing the numbers) -->
+             Loop through 1-7 and autofill generic placeholders using the template before (just changing the numbers)
             {% for i in range(1, 8) %}
-                <!-- This will be populated by the javascript in production, but for now is filled manually -->
-                <li class="item" id="item{{ i }}">
-                    <label for="item{{ i }}-checkbox">
-                        <a id="recipie-link" href="https://www.google.com">RECIPIE NAME</a>
-                    </label>
-                    <input type="checkbox" id="item{{ i }}-checkbox" class="checkbox" onclick="// Gray out, move to the bottom of the list, and tell the server that this recipie has been used">
-                </li>
+                This will be populated by the javascript in production, but for now is filled manually
+                <div class="item">
+                    <li id="item{{ i }}">
+                        <label for="item{{ i }}-checkbox">
+                            <a id="recipie-link" href="https://www.google.com">RECIPIE NAME</a>
+                        </label>
+                        <input type="checkbox" id="item{{ i }}-checkbox" class="checkbox" onclick="// Gray out, move to the bottom of the list, and tell the server that this recipie has been used">
+                    </li>
+                </div>
             {% endfor %}
         </ul>
     </div>
+    -->
 {% endblock %}
