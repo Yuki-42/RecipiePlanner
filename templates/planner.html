@@ -1,0 +1,29 @@
+{% extends "_base.html" %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for("static", filename="css/planner.css") }}">
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ url_for("static", filename="js/planner.js") }}"></script>
+{% endblock %}
+
+{% block title %}Planner{% endblock %}
+
+{% block content %}
+    <h1>Meal Planner</h1>
+    <div id="planner">
+        <ul id="items">
+            <!-- Loop through 1-7 and autofill generic placeholders using the template before (just changing the numbers) -->
+            {% for i in range(1, 8) %}
+                <!-- This will be populated by the javascript in production, but for now is filled manually -->
+                <li class="item" id="item{{ i }}">
+                    <label for="item{{ i }}-checkbox">
+                        <a id="recipie-link" href="https://www.google.com">RECIPIE NAME</a>
+                    </label>
+                    <input type="checkbox" id="item{{ i }}-checkbox" class="checkbox" onclick="// Gray out, move to the bottom of the list, and tell the server that this recipie has been used">
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
