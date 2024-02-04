@@ -3,16 +3,13 @@ window.onload = function () {
     const sortableList = document.getElementById("items");
     let draggedItem = null;
     // Script.js
-
-
-    sortableList.addEventListener(
-        "dragstart",
-        (e) => {
+    sortableList.addEventListener("dragstart",(e) => {
             draggedItem = e.target;
-            setTimeout(() => {
-                e.target.style.display =
-                    "none";
-            }, 0);
+            setTimeout(
+                () => {
+                    e.target.style.display = "none";
+            },
+                0);
         });
 
     sortableList.addEventListener(
@@ -24,17 +21,11 @@ window.onload = function () {
             }, 0);
         });
 
-    sortableList.addEventListener(
-        "dragover",
+    sortableList.addEventListener("dragover",
         (e) => {
             e.preventDefault();
-            const afterElement =
-                getDragAfterElement(
-                    sortableList,
-                    e.clientY);
-            const currentElement =
-                document.querySelector(
-                    ".dragging");
+            const afterElement = getDragAfterElement(sortableList, e.clientY);
+            const currentElement = document.querySelector(".dragging");
             if (afterElement == null) {
                 sortableList.appendChild(
                     draggedItem
@@ -86,7 +77,7 @@ function checkboxClick(checkbox) {
     // If the checkbox is checked, add the class 'completed' to the list item and move the list item to the bottom of the list
     if (checkbox.checked) {
         listItem.classList.add('completed');
-        listItem.parentElement.appendChild(listItem);
+        listItem.parentElement.append(listItem);
     } else {
         // If the checkbox is not checked, remove the class 'completed' from the list item and move the list item to the top of the list
         listItem.classList.remove('completed');
