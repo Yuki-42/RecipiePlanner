@@ -1,0 +1,63 @@
+:root {
+    --primary-background: #121212;
+    --secondary-background: #1c1c1c;
+    --code-normal: #808080;
+    --code-yellow: #f5d342;
+    --yellow-1: #f2cf1c;
+    --yellow-2: #ccaa00;
+    --text-black: #000000;
+    --text-white: #ffffff;
+    --green-1: #049a49;
+    --text-primary: #d4d4d4;
+    --text-secondary: #000000;
+}
+
+header {
+    background: var(--secondary-background);
+}
+
+header * div {
+    color: var(--text-primary);
+    background: var(--green-1);
+    border-radius: 10px;
+    /* add margin to the right of the div */
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+    padding: 0.2em 0.5em;
+}
+
+header nav div {
+    /* Add a hover effect */
+    transition: background-color 0.3s;
+}
+
+header nav div:hover {
+    background: var(--yellow-1);
+}
+
+
+footer {
+    color: var(--text-secondary);
+    background: var(--secondary-background);
+}
+
+footer {
+    background: var(--green-1);
+}
+
+a {
+    color: var(--text-secondary);
+}
+
+.test {
+    color: var(--text-secondary);
+}
+
+.gallery-item {
+    background-color: var(--yellow-1);
+}
+
+.gallery-item-details {
+    color: var(--text-primary);
+    background-color: var(--yellow-1);
+}
