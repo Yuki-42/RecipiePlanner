@@ -1,16 +1,20 @@
 """
 Main script for project.
 """
+# Standard Library Imports
 from base64 import b64decode
+from datetime import datetime
 from logging import getLogger
-# Standard imports
-from secrets import token_urlsafe
+from uuid import uuid4
 
-# Third party imports
-from flask import Flask, Response, render_template as render, request
+# Third Party Imports
+from flask import Flask, Response, render_template as render, request, g
 
+# Local Imports
 from internals.clogging import SuppressedLoggerAdapter, createLogger
 from internals.config import Config
+
+# Standard imports
 
 # Constants
 EXPECTED_COOKIES: list[str]
@@ -36,7 +40,7 @@ Flask.url_for.__annotations__ = {}
 # Create the Flask app
 app: Flask = Flask(__name__, static_folder="static", template_folder="templates")
 
-# Set static and template folders
+# Set static and template folders. No I don't know why I am doing this twice.
 app.static_folder = "static"
 app.template_folder = "templates"
 
@@ -66,7 +70,7 @@ def beforeRequest() -> Response | None:
         return app.send_static_file(f"css/{request.cookies.get("theme", config.server.theme)}_colours.css")
 
     # Check if the request is coming from the server or is from one of the development machines
-    if request.remote_addr == config.server.host or (request.remote_addr in ["192.168.0.223"] and config.server.debug):
+    if request.remote_addr == config.server.host or (request.remote_addr in ["192.168.0.4"] and config.server.debug):
         # Continue to route
         return
 

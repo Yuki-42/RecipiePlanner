@@ -5,3 +5,4 @@ flask-injector~=0.15.0
 gunicorn~=22.0.0
 psycopg2-binary~=2.9.9
 dynaconf~=3.2.5
+passlib~=1.7.4
